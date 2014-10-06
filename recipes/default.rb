@@ -17,11 +17,19 @@ apt_repository "elasticsearch" do
   action :add
 end
 
-packages = %w{elasticsearch nload iotop htop}
+# Install some niceties
+packages = %w{nload iotop htop}
 
 packages.each do |pkg|
   package pkg do
     action :install
     options '--force-yes'
   end
+end
+
+# Install ES with the preferred version
+package "elasticsearch" do
+  version node[:elasticsearch][:version]
+  action :install
+  options '--force-yes'
 end
