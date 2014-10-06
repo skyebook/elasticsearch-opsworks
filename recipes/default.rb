@@ -17,8 +17,8 @@ apt_repository "elasticsearch" do
   action :add
 end
 
-# Install some niceties
-packages = %w{nload iotop htop}
+# Install Java and some niceties
+packages = %w{openjdk-7-jre nload iotop htop}
 
 packages.each do |pkg|
   package pkg do

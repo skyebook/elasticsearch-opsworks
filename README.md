@@ -1,17 +1,10 @@
 elasticsearch-opsworks Cookbook
 ===============================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This cookbook installs and configures Elasticsearch.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - elasticsearch-opsworks needs toaster to brown your bagel.
+Java is required by ES; This cookbook will install OpenJDK 7.
 
 Attributes
 ----------
@@ -27,10 +20,10 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['elasticsearch-opsworks']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['elasticsearch-opsworks']['version']</tt></td>
+    <td>string</td>
+    <td>The version of Elasticsearch to install</td>
+    <td><tt>1.3.4</tt></td>
   </tr>
 </table>
 
