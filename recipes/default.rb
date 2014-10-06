@@ -9,7 +9,7 @@
 
 # Add ES repository
 apt_repository "elasticsearch" do
-  uri "http://packages.elasticsearch.org/elasticsearch/1.3/debian/dists/stable/Release"
+  uri "http://packages.elasticsearch.org/elasticsearch/1.3/debian"
   components ["stable", "main"]
   key "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
   
