@@ -4,7 +4,8 @@ This cookbook installs and configures Elasticsearch.
 
 Requirements
 ------------
-Java is required by ES; This cookbook will install OpenJDK 7.
+* Java is required by ES; This cookbook will install OpenJDK 7.
+* Instances must belong to a single OpsWorks layer in order for configuration to work correctly.
 
 Attributes
 ----------
