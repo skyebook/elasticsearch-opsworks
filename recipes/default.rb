@@ -17,8 +17,8 @@ apt_repository "elasticsearch" do
   action :add
 end
 
-# Install Java and some niceties
-packages = %w{openjdk-7-jre nload iotop htop}
+# Install Java, Nginx, and some niceties
+packages = %w{openjdk-7-jre nginx nload iotop htop}
 
 packages.each do |pkg|
   package pkg do
@@ -43,7 +43,24 @@ template "/etc/elasticsearch/logging.yml" do
   source "logging.yml.erb"
 end
 
+template "/etc/nginx/sites-available/default" do
+  source "nginx-site.erb"
+end
+
+template "/etc/nginx/sites-available/default" do
+  source "nginx-site.erb"
+end
+
+template "/etc/nginx/conf.d/elasticsearch.htpasswd" do
+  source "elasticsearch.htpasswd.erb"
+end
+
 # Start ES
 service "elasticsearch" do
+  action :start
+end
+
+# Start Nginx
+service "nginx" do
   action :start
 end

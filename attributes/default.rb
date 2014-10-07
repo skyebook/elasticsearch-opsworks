@@ -1,4 +1,8 @@
 default[:elasticsearch] = {
+  :auth => {
+    :username => "elasticsearch_user",
+    :password => "elasticsearch_password"
+  },
   :cluster => {
     :name => "elasticsearch"
   },
