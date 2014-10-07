@@ -33,3 +33,12 @@ package "elasticsearch" do
   action :install
   options '--force-yes'
 end
+
+# Populate config files
+template "/etc/elasticsearch/elasticsearch.yml" do
+  source "elasticsearch.yml.erb"
+end
+
+template "/etc/elasticsearch/logging.yml" do
+  source "logging.yml.erb"
+end
