@@ -42,3 +42,8 @@ end
 template "/etc/elasticsearch/logging.yml" do
   source "logging.yml.erb"
 end
+
+# Start ES
+service "elasticsearch" do
+  action :start
+end
