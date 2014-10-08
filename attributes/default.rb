@@ -26,5 +26,5 @@ hosts_string = "[" + seed_array.map!{|host| "\"#{host}\""}.join(", ") + "]"
 set[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] = seed_array
 
 # Create HTPasswd
-command = "printf \""+default[:elasticsearch][:auth][:username]+":$(openssl passwd -apr1 "+default[:elasticsearch][:auth][:passwd]+")\""
-set[:elasticsearch][:auth][:htpasswd] => `#{command}`
+command = "printf \""+default[:elasticsearch][:auth][:username]+":$(openssl passwd -apr1 "+default[:elasticsearch][:auth][:password]+")\""
+set[:elasticsearch][:auth][:htpasswd] = `#{command}`
