@@ -55,6 +55,11 @@ template "/etc/nginx/conf.d/elasticsearch.htpasswd" do
   source "elasticsearch.htpasswd.erb"
 end
 
+# Set permissions so that nginx can access the newly created htpasswd file
+file "/etc/nginx/conf.d/elasticsearch.htpasswd" do
+  mode "644"
+end
+
 # Start ES
 service "elasticsearch" do
   action :start
