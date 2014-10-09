@@ -55,6 +55,14 @@ template "/etc/nginx/conf.d/elasticsearch.htpasswd" do
   source "elasticsearch.htpasswd.erb"
 end
 
+# Create the SSL directory before dropping templates in
+directory "/etc/nginx/ssl" do
+  owner "root"
+  group "root"
+  mode "644"
+  action :create
+end
+
 template "/etc/nginx/ssl/cert.pem" do
   source "cert.pem.erb"
 end
