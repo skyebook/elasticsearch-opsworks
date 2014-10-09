@@ -63,9 +63,13 @@ template "/etc/nginx/ssl/cert.key" do
   source "cert.key.erb"
 end
 
+files = "%w{/etc/nginx/conf.d/elasticsearch.htpasswd /etc/nginx/ssl/cert.pem /etc/nginx/ssl/cert.key}"
+
 # Set permissions so that nginx can access the newly created htpasswd file
-file "/etc/nginx/conf.d/elasticsearch.htpasswd" do
-  mode "644"
+files.each do |f|
+  file f do
+    mode "644"
+  end
 end
 
 # Start ES
