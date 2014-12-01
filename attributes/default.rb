@@ -6,7 +6,11 @@ default[:elasticsearch] = {
   :cluster => {
     :name => "elasticsearch"
   },
-  :version => '1.3.4'
+  :version => '1.3.4',
+  :path => {
+  	:logs => "/var/log/elasticsearch"
+  	:data => "/var/data/elasticsearch"
+  }
 }
 
 # Populate an array with the addresses of other instances in the ES layer
