@@ -8,7 +8,7 @@ default[:elasticsearch] = {
   },
   :version => '1.3.4',
   :path => {
-  	:logs => "/var/log/elasticsearch"
+  	:logs => "/var/log/elasticsearch",
   	:data => "/var/data/elasticsearch"
   }
 }
