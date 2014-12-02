@@ -64,14 +64,16 @@ directory "/etc/nginx/ssl" do
   action :create
 end
 
-template "/etc/nginx/ssl/cert.pem" do
-  source "cert.pem.erb"
-  mode "644"
-end
+if node[:elasticsearch][:ssl][:cert]
+  template "/etc/nginx/ssl/cert.pem" do
+    source "cert.pem.erb"
+    mode "644"
+  end
 
-template "/etc/nginx/ssl/cert.key" do
-  source "cert.key.erb"
-  mode "644"
+  template "/etc/nginx/ssl/cert.key" do
+    source "cert.key.erb"
+    mode "644"
+  end
 end
 
 # Start ES

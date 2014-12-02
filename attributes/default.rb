@@ -10,6 +10,10 @@ default[:elasticsearch] = {
   :path => {
   	:logs => "/var/log/elasticsearch",
   	:data => "/var/data/elasticsearch"
+  },
+  :ssl => {
+  	:cert => nil,
+  	:key => nil
   }
 }
 

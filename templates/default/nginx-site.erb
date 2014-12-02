@@ -21,6 +21,7 @@
 # }
 
 server {
+<% if node[:elasticsearch][:ssl][:cert] %>
 	listen                *:443;
   
 	ssl on;
@@ -32,7 +33,12 @@ server {
 	ssl_protocols SSLv3 TLSv1;
 	ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
 	ssl_prefer_server_ciphers on;
+<% else %>
 
+	listen                *:80;
+
+<% end %>
+	
 	location / {
 		proxy_pass http://127.0.0.1:9200;
 		auth_basic "Restricted";
