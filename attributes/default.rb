@@ -26,7 +26,7 @@ seed_array << node["opsworks"]["instance"]["private_ip"]
 # This is kind of hacky, but it reliably gets the OpsWorks layer we are running on (presuming the instance only belongs to a single layer)
 layer = node["opsworks"]["instance"]["layers"][0]
 node["opsworks"]["layers"][layer]["instances"].each do |instance_name, values|
-  seed_array << values["private_ip"]
+  seed_array << values["private_ip"].gsub("\"", "")
 end
 
 hosts_string = "[" + seed_array.map!{|host| "\"#{host}\""}.join(", ") + "]"
