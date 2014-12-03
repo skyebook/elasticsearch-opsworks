@@ -17,8 +17,22 @@ apt_repository "elasticsearch" do
   action :add
 end
 
-# Install Java, Nginx, and some niceties
-packages = %w{openjdk-7-jre nginx nload iotop htop}
+# Install Nginx, and some niceties
+packages = %w{nginx nload iotop htop}
+
+# Install Java
+
+execute "add oracle java repo" do
+    command '/usr/bin/add-apt-repository -y ppa:webupd8team/java && /usr/bin/apt-get update'
+    not_if "test -x /etc/apt/sources.list.d/webupd8team-java-precise.list"
+end
+execute "accept-license" do
+  command "echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections"
+end
+
+package "oracle-java7-installer"
+package "oracle-java7-set-default"
+
 
 packages.each do |pkg|
   package pkg do
