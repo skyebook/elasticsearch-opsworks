@@ -104,8 +104,20 @@ if node[:elasticsearch][:ssl][:cert]
 end
 
 # Start ES
-service "elasticsearch" do
-  action :start
+#service "elasticsearch" do
+#  action :start
+#end
+
+execute "add init script to system startup" do
+  command "update-rc.d elasticsearch defaults"
+  user "root"
+  action :run
+end
+
+execute "init ES"
+  command "/etc/init.d/elasticsearch start" do
+  user "root"
+  action :run
 end
 
 # Start Nginx
