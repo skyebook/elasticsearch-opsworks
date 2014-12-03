@@ -114,8 +114,8 @@ execute "add init script to system startup" do
   action :run
 end
 
-execute "init ES"
-  command "/etc/init.d/elasticsearch start" do
+execute "init ES" do
+  command "/etc/init.d/elasticsearch start"
   user "root"
   action :run
 end
