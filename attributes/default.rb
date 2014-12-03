@@ -29,6 +29,8 @@ node["opsworks"]["layers"][layer]["instances"].each do |instance_name, values|
   seed_array << values["private_ip"].gsub("\"", "")
 end
 
+puts "******* SEED ARRAY: #{seed_array} "
+
 hosts_string = "[" + seed_array.map!{|host| "\"#{host}\""}.join(", ") + "]"
   
 set[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] = seed_array
