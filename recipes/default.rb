@@ -78,6 +78,19 @@ directory "/etc/nginx/ssl" do
   action :create
 end
 
+execute "chown ES data path" do
+  command "chown -R root:elasticsearch #{node[:elasticsearch][:path][:data]}"
+  user "root"
+  action :run
+end
+
+execute "chmod ES data path" do
+  command "chmod -R g+w #{node[:elasticsearch][:path][:data]}"
+  user "root"
+  action :run
+end
+
+
 if node[:elasticsearch][:ssl][:cert]
   template "/etc/nginx/ssl/cert.pem" do
     source "cert.pem.erb"
