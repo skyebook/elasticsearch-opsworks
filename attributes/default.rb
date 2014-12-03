@@ -31,7 +31,7 @@ end
 
 puts "******* SEED ARRAY: #{seed_array} "
 
-hosts_string = "[" + seed_array.map{|host| "\"#{host}\""}.join(", ") + "]"
+hosts_string = "[" + seed_array.map{|host| "\"#{host}\""}.uniq.join(", ") + "]"
   
 set[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] = seed_array
 
