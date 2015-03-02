@@ -12,13 +12,13 @@ apt_repository "elasticsearch" do
   uri "http://packages.elasticsearch.org/elasticsearch/1.3/debian"
   components ["stable", "main"]
   key "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
-  
+
   # Add is actually the default action now, but let's be explicit for clarity
   action :add
 end
 
 # Install Nginx, and some niceties
-packages = %w{nginx nload iotop htop}
+packages = %w{nload iotop htop}
 
 # Install Java
 
@@ -57,26 +57,6 @@ template "/etc/elasticsearch/logging.yml" do
   source "logging.yml.erb"
 end
 
-template "/etc/nginx/sites-available/default" do
-  source "nginx-site.erb"
-end
-
-template "/etc/nginx/sites-available/default" do
-  source "nginx-site.erb"
-end
-
-template "/etc/nginx/conf.d/elasticsearch.htpasswd" do
-  source "elasticsearch.htpasswd.erb"
-  mode "644"
-end
-
-# Create the SSL directory before dropping templates in
-directory "/etc/nginx/ssl" do
-  owner "root"
-  group "root"
-  mode "755"
-  action :create
-end
 
 execute "chown ES data path" do
   command "chown -R root:elasticsearch #{node[:elasticsearch][:path][:data]}"
@@ -90,18 +70,6 @@ execute "chmod ES data path" do
   action :run
 end
 
-
-if node[:elasticsearch][:ssl][:cert]
-  template "/etc/nginx/ssl/cert.pem" do
-    source "cert.pem.erb"
-    mode "644"
-  end
-
-  template "/etc/nginx/ssl/cert.key" do
-    source "cert.key.erb"
-    mode "644"
-  end
-end
 
 # Start ES
 #service "elasticsearch" do
@@ -120,7 +88,3 @@ execute "init ES" do
   action :run
 end
 
-# Start Nginx
-service "nginx" do
-  action :start
-end
