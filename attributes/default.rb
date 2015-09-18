@@ -6,7 +6,15 @@ default[:elasticsearch] = {
   :cluster => {
     :name => "elasticsearch"
   },
-  :version => '1.3.4'
+  :version => '1.3.4',
+  :path => {
+  	:logs => "/var/log/elasticsearch",
+  	:data => "/var/data/elasticsearch"
+  },
+  :ssl => {
+  	:cert => nil,
+  	:key => nil
+  }
 }
 
 # Populate an array with the addresses of other instances in the ES layer
@@ -18,10 +26,12 @@ seed_array << node["opsworks"]["instance"]["private_ip"]
 # This is kind of hacky, but it reliably gets the OpsWorks layer we are running on (presuming the instance only belongs to a single layer)
 layer = node["opsworks"]["instance"]["layers"][0]
 node["opsworks"]["layers"][layer]["instances"].each do |instance_name, values|
-  seed_array << values["private_ip"]
+  seed_array << values["private_ip"].gsub("\"", "")
 end
 
-hosts_string = "[" + seed_array.map!{|host| "\"#{host}\""}.join(", ") + "]"
+puts "******* SEED ARRAY: #{seed_array} "
+
+hosts_string = "[" + seed_array.map{|host| "\"#{host}\""}.uniq.join(", ") + "]"
   
 set[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] = seed_array
 
